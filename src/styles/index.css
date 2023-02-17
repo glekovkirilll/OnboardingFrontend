@@ -31,3 +31,8 @@
     margin-top: 0.5rem;
     font-family: sans-serif;
 }
+
+#carouselExampleIndicators {
+    height: 40%;
+    width: 40%;
+}
