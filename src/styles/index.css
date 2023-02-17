@@ -1,0 +1,17 @@
+.navbar-brand{
+    padding-bottom: 0;
+  }
+  #logo-name{
+    color: #B3E427;
+    margin-left: 1rem;
+    float: left;
+  }
+  #logo-picture{
+    width: 20px;
+    height: 20px;
+    background: #B3E427;
+    border-radius: 50%;
+    margin-left: 1rem;
+    float: left;
+    margin-top: 0.4rem;
+  }
