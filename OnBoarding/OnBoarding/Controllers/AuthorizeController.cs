@@ -82,12 +82,22 @@ namespace OnBoarding.Controllers
                }),
                Encoding.UTF8,
                "application/json");
+            String jsonResponse;
+            try
+            {
+                using HttpResponseMessage response = await sharedClient.PostAsync("user/register", jsonRegisterContent);
+                Console.WriteLine(response.EnsureSuccessStatusCode());
 
-            using HttpResponseMessage response = await sharedClient.PostAsync("user/register", jsonRegisterContent);
+                jsonResponse = await response.Content.ReadAsStringAsync();
 
-            Console.WriteLine(response.EnsureSuccessStatusCode());
+            }
+            catch
+            {
+                return View();
+                
+            }
 
-            var jsonResponse = await response.Content.ReadAsStringAsync();
+            
 
             var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
             Console.WriteLine("JWT: " + jsonBody.JWT);
@@ -101,10 +111,10 @@ namespace OnBoarding.Controllers
             }
             else
             {
-                return View("Auth");
+                return View();
             }
 
-            return View("Auth");
+            return View();
         }
     }
 }
