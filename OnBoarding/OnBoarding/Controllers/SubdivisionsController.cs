@@ -47,6 +47,8 @@ namespace OnBoarding.Controllers
             var jsonBody = JsonConvert.DeserializeObject<DivisionsList>(jsonResponse);
             var model = jsonBody.divisions;
             Console.WriteLine(model);
+
+
             return View(model);
             
         }
