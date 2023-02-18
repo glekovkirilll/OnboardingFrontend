@@ -7,6 +7,8 @@ using Newtonsoft.Json;
 using System.Text;
 using System.Net.Http;
 using OnBoarding.Models;
+using System.Net.Http.Headers;
+using NuGet.Common;
 
 namespace OnBoarding.Controllers
 {
@@ -61,7 +63,36 @@ namespace OnBoarding.Controllers
                 return View("Auth");
             }
 
+            sharedClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
 
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        public async Task<IActionResult> Author(String email, String password)
+        {
+
+            String jsonResponse;
+            try
+            {
+                using HttpResponseMessage response = await sharedClient.GetAsync("test");
+                Console.WriteLine(response.EnsureSuccessStatusCode());
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+            }
+            catch
+            {
+                return View();
+
+            }
+
+
+            var clientHandler = new HttpClientHandler();
+            var client = new HttpClient(clientHandler);
+            client.DefaultRequestHeaders.Authorization =
+                new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY4MDY0NzIsImlhdCI6MTY3NjcyMDA3MiwidXNlcl9ndWlkIjoiMzczNDAzYTQtYWY4MC0xMWVkLThhMDktMDI0MmFjMTMwMDAyIn0.W7h-Ef2k6bAmYqxzqpyjOrn2akgHIWXo_T4BHEV1-TA");
+            Console.WriteLine(sharedClient.ToString());
             return RedirectToAction("Index", "Home");
         }
 
@@ -112,6 +143,15 @@ namespace OnBoarding.Controllers
             else
             {
                 return View();
+            }
+
+            using (var requestMessage =
+            new HttpRequestMessage(HttpMethod.Get, "http://192.168.1.56:8080/api/v1/"))
+            {
+                requestMessage.Headers.Authorization =
+                    new AuthenticationHeaderValue("Bearer", localToken);
+
+                await sharedClient.SendAsync(requestMessage);
             }
 
             return RedirectToAction("Index", "Home");
