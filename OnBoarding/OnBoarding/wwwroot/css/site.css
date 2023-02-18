@@ -1,11 +1,14 @@
 html {
     font-size: 14px;
-    font-family: "Sans Serif";
+}
+
+* {
+    font-family: my-font;
 }
 
 @font-face {
-    font-family: "Sans Serif";
-    src: url("../fonts/microsoftsansserif.ttf") format("truetype");
+    font-family: "my-font";
+    src: url("../fonts/GT-Eesti-LC-Text-Regular.otf") format("truetype");
     font-style: normal;
     font-weight: normal;
 } 
