@@ -1,5 +1,8 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+@{
+    var error = ViewBag.Error;
+}
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -29,7 +32,7 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Документация</a>
                     </li>
-                     <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "Users")">Список пользователей</a>
                     </li>
                 </ul>
@@ -129,10 +132,28 @@
             </div>
         </div>
     </form>
+    <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="errorModalLabel">Регистрация</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+                        Кажется, что-то пошло не так...
+                    </div>
+                </div>
+            </div>
+        </div>
 </body>
 </html>
 
-<style>
-    
+<script>
+    window.onload = function()  {
+        var error = @ViewBag.Error; 
+      if (error == "error"){
+          $('#errorModal').modal('show'); 
+      }
+    };
 
-</style>
+</script>

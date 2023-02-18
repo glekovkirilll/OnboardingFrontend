@@ -7,74 +7,86 @@
 <h1 class="m-3 noneCursor">Список пользователей</h1>
 <div class="container mt-3">
     <p>
-        <a asp-action="Create">Создать нового пользователя</a>
+        <a type="submit" class="btn btn-modal" asp-action="Create" >Создать нового пользователя</a>
     </p>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>
-                    ID
-                </th>
-                <th>
-                    E-Mail
-
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.id)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EMail)
-                    </td>
-                    <td>
+    <div class="list-group list-group-bordered">
+        @foreach (var item in Model)
+        {
+            <div class="list-group list-group-horizontal">
+                <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                    <div class="list-group-item-body">
+                        <div class="list-group-item-text"><b>ID</b></div>
+                        <div class="list-group-item-title">@item.id</div>
+                    </div>
+                </div>
+                <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                    <div class="list-group-item-body">
+                        <div class="list-group-item-text"><b>Email</b></div>
+                        <div class="list-group-item-title">@item.EMail</div>
+                    </div>
+                </div>
+                <div class="list-group-item p-2 flex-fill" style="width: 30%">
+                    <div class="list-group-item-body">
                         <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editAboutModal">Редактировать о себе</button> |
-                        <a asp-action="Delete">Delete</a>
-                    </td>
-                </tr>
-
-            }
-        </tbody>
-    </table>
-</div>
-
-<form method="post" action="/Users/Edit">
-        <div class="modal fade" id="editAboutModal" tabindex="-1" role="dialog" aria-labelledby="editAboutModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="editAboutModalLabel">Информация о пользователе</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
-                    </div>
-                    <div class="modal-body">
-
-                        <div class="mb-3">
-                            <label for="fio-for-about" class="col-form-label">ФИО:</label>
-                            <input type="text" name="fio" class="form-control" id="fio-for-about">
-                        </div>
-                        <div class="mb-3">
-                            <label for="about-for-about" class="col-form-label">О себе:</label>
-                            <textarea type="text" name="about" class="form-control" id="about-for-about"></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label for="phoneNumber-for-about" class="col-form-label">Номер телефона:</label>
-                            <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber-for-about">
-                        </div>
-                        <div class="mb-3">
-                            <label for="telegramId-for-about" class="col-form-label">ID telegram:</label>
-                            <input type="text" name="telegramId" class="form-control" id="telegramId-for-about">
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-modal">Сохранить</button>
+                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteUserModal">Delete</button>
                     </div>
                 </div>
             </div>
+        }
+    </div>
+    
+</div>
+
+<form method="post" action="/Users/Edit">
+    <div class="modal fade" id="editAboutModal" tabindex="-1" role="dialog" aria-labelledby="editAboutModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editAboutModalLabel">Информация о пользователе</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <label for="fio-for-about" class="col-form-label">ФИО:</label>
+                        <input type="text" name="fio" class="form-control" id="fio-for-about">
+                    </div>
+                    <div class="mb-3">
+                        <label for="about-for-about" class="col-form-label">О себе:</label>
+                        <textarea type="text" name="about" class="form-control" id="about-for-about"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber-for-about" class="col-form-label">Номер телефона:</label>
+                        <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber-for-about">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telegramId-for-about" class="col-form-label">ID telegram:</label>
+                        <input type="text" name="telegramId" class="form-control" id="telegramId-for-about">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Сохранить</button>
+                </div>
+            </div>
         </div>
+    </div>
+</form>
+
+<form method="post" action="/Users/Delete">
+    <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteUserModalLabel">Информация о пользователе</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    Вы точно хотите удалить этого пользователя?
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

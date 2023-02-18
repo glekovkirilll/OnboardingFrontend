@@ -93,6 +93,7 @@ namespace OnBoarding.Controllers
             }
             catch
             {
+                ViewBag.Error = "error";
                 return View();
                 
             }

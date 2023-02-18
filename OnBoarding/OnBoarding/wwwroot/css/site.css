@@ -1,6 +1,14 @@
 html {
-  font-size: 14px;
+    font-size: 14px;
+    font-family: "Sans Serif";
 }
+
+@font-face {
+    font-family: "Sans Serif";
+    src: url("../fonts/microsoftsansserif.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+} 
 
 @media (min-width: 768px) {
   html {
