@@ -17,9 +17,15 @@ namespace OnBoarding.Controllers
         LocalStorage storage = new LocalStorage();
         const string KEY = "JWTToken";
 
-        private static HttpClient sharedClient = new()
+        /*private static HttpClient sharedClient = new()
         {
             BaseAddress = new Uri("http://192.168.1.56:8080/api/v1/"),
+        };*/
+
+        private static HttpClient client = new HttpClient();
+        private static HttpRequestMessage request  = new HttpRequestMessage()
+        {
+            RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
         };
 
         [HttpGet]
@@ -42,8 +48,15 @@ namespace OnBoarding.Controllers
                 "application/json");
 
 
-            using HttpResponseMessage response = await sharedClient.PostAsync("user/login", jsonContent);
-
+            var req = new HttpRequestMessage()
+            {
+                RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
+            };
+            req.Method = HttpMethod.Post;
+            req.RequestUri = new Uri(req.RequestUri.ToString() + "user/login");
+            req.Content = jsonContent;
+            //using HttpResponseMessage response = await sharedClient.PostAsync("user/login", jsonContent);
+            using HttpResponseMessage response = await client.SendAsync(req);
             Console.WriteLine(response.EnsureSuccessStatusCode());
 
             var jsonResponse = await response.Content.ReadAsStringAsync();
@@ -63,8 +76,15 @@ namespace OnBoarding.Controllers
                 return View("Auth");
             }
 
-            sharedClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
-
+            var req2 = new HttpRequestMessage()
+            {
+                RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
+            };
+            req2.RequestUri = new Uri(req2.RequestUri.ToString() + "test");
+            req2.Method = HttpMethod.Get;
+            req2.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY4MDY0NzIsImlhdCI6MTY3NjcyMDA3MiwidXNlcl9ndWlkIjoiMzczNDAzYTQtYWY4MC0xMWVkLThhMDktMDI0MmFjMTMwMDAyIn0.W7h-Ef2k6bAmYqxzqpyjOrn2akgHIWXo_T4BHEV1-TA");
+            using HttpResponseMessage response2 = await client.SendAsync(req2);
+            Console.WriteLine(response2.EnsureSuccessStatusCode());
 
             return RedirectToAction("Index", "Home");
         }
@@ -75,10 +95,13 @@ namespace OnBoarding.Controllers
             String jsonResponse;
             try
             {
-                using HttpResponseMessage response = await sharedClient.GetAsync("test");
-                Console.WriteLine(response.EnsureSuccessStatusCode());
+                var req = request;
+                req.RequestUri = new Uri(req.RequestUri.ToString() + "/test");
+                req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY4MDY0NzIsImlhdCI6MTY3NjcyMDA3MiwidXNlcl9ndWlkIjoiMzczNDAzYTQtYWY4MC0xMWVkLThhMDktMDI0MmFjMTMwMDAyIn0.W7h-Ef2k6bAmYqxzqpyjOrn2akgHIWXo_T4BHEV1-TA");
+                // using HttpResponseMessage response = await client.SendAsync(req);
+                //Console.WriteLine(response.EnsureSuccessStatusCode());
 
-                jsonResponse = await response.Content.ReadAsStringAsync();
+                //jsonResponse = await response.Content.ReadAsStringAsync();
 
             }
             catch
@@ -92,7 +115,7 @@ namespace OnBoarding.Controllers
             var client = new HttpClient(clientHandler);
             client.DefaultRequestHeaders.Authorization =
                 new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY4MDY0NzIsImlhdCI6MTY3NjcyMDA3MiwidXNlcl9ndWlkIjoiMzczNDAzYTQtYWY4MC0xMWVkLThhMDktMDI0MmFjMTMwMDAyIn0.W7h-Ef2k6bAmYqxzqpyjOrn2akgHIWXo_T4BHEV1-TA");
-            Console.WriteLine(sharedClient.ToString());
+            //Console.WriteLine(sharedClient.ToString());
             return RedirectToAction("Index", "Home");
         }
 
@@ -116,10 +139,10 @@ namespace OnBoarding.Controllers
             String jsonResponse;
             try
             {
-                using HttpResponseMessage response = await sharedClient.PostAsync("user/register", jsonRegisterContent);
-                Console.WriteLine(response.EnsureSuccessStatusCode());
+                //sing HttpResponseMessage response = await sharedClient.PostAsync("user/register", jsonRegisterContent);
+                //Console.WriteLine(response.EnsureSuccessStatusCode());
 
-                jsonResponse = await response.Content.ReadAsStringAsync();
+                //jsonResponse = await response.Content.ReadAsStringAsync();
 
             }
             catch
@@ -131,9 +154,9 @@ namespace OnBoarding.Controllers
 
             
 
-            var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
-            Console.WriteLine("JWT: " + jsonBody.JWT);
-            storage.Store(KEY, jsonBody.JWT);
+            //var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
+            //Console.WriteLine("JWT: " + jsonBody.JWT);
+            //storage.Store(KEY, jsonBody.JWT);
 
 
             string localToken;
@@ -152,7 +175,7 @@ namespace OnBoarding.Controllers
                 requestMessage.Headers.Authorization =
                     new AuthenticationHeaderValue("Bearer", localToken);
 
-                await sharedClient.SendAsync(requestMessage);
+               // await sharedClient.SendAsync(requestMessage);
             }
 
             return RedirectToAction("Index", "Home");
