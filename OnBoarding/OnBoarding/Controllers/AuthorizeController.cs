@@ -1,14 +1,10 @@
-﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using Microsoft.AspNetCore.Mvc;
-using System.Reflection;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using Hanssens.Net;
 using Newtonsoft.Json;
 using System.Text;
-using System.Net.Http;
 using OnBoarding.Models;
 using System.Net.Http.Headers;
-using NuGet.Common;
+
 
 namespace OnBoarding.Controllers
 {
@@ -17,13 +13,8 @@ namespace OnBoarding.Controllers
         LocalStorage storage = new LocalStorage();
         const string KEY = "JWTToken";
 
-        /*private static HttpClient sharedClient = new()
-        {
-            BaseAddress = new Uri("http://192.168.1.56:8080/api/v1/"),
-        };*/
-
         private static HttpClient client = new HttpClient();
-        private static HttpRequestMessage request  = new HttpRequestMessage()
+        private static HttpRequestMessage request = new HttpRequestMessage()
         {
             RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
         };
@@ -36,18 +27,18 @@ namespace OnBoarding.Controllers
 
         [HttpPost]
         public async Task<IActionResult> Auth(String email, String password)
-        {       
-
+        {
+            // Data model for login
             using StringContent jsonContent = new(
             JsonConvert.SerializeObject(new
-                {
-                    email = email,
-                    password = password
-                }),
+            {
+                email = email,
+                password = password
+            }),
                 Encoding.UTF8,
                 "application/json");
 
-
+            // Post data model to server
             var req = new HttpRequestMessage()
             {
                 RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
@@ -55,17 +46,20 @@ namespace OnBoarding.Controllers
             req.Method = HttpMethod.Post;
             req.RequestUri = new Uri(req.RequestUri.ToString() + "user/login");
             req.Content = jsonContent;
-            //using HttpResponseMessage response = await sharedClient.PostAsync("user/login", jsonContent);
             using HttpResponseMessage response = await client.SendAsync(req);
+
+            // Write return code for data
             Console.WriteLine(response.EnsureSuccessStatusCode());
 
+            // Get JWT token
             var jsonResponse = await response.Content.ReadAsStringAsync();
-
             var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
             Console.WriteLine("JWT: " + jsonBody.JWT);
+
+            // Add JWT to local storage
             storage.Store(KEY, jsonBody.JWT);
 
-
+            // Verification and localization for token
             string localToken;
             if (storage.Exists(KEY))
             {
@@ -76,48 +70,22 @@ namespace OnBoarding.Controllers
                 return View("Auth");
             }
 
+            // Post JWT to header
             var req2 = new HttpRequestMessage()
             {
                 RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
             };
             req2.RequestUri = new Uri(req2.RequestUri.ToString() + "test");
             req2.Method = HttpMethod.Get;
-            req2.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY4MDY0NzIsImlhdCI6MTY3NjcyMDA3MiwidXNlcl9ndWlkIjoiMzczNDAzYTQtYWY4MC0xMWVkLThhMDktMDI0MmFjMTMwMDAyIn0.W7h-Ef2k6bAmYqxzqpyjOrn2akgHIWXo_T4BHEV1-TA");
+            req2.Headers.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
             using HttpResponseMessage response2 = await client.SendAsync(req2);
+
+            // Write return code for JWT
             Console.WriteLine(response2.EnsureSuccessStatusCode());
 
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> Author(String email, String password)
-        {
-
-            String jsonResponse;
-            try
-            {
-                var req = request;
-                req.RequestUri = new Uri(req.RequestUri.ToString() + "/test");
-                req.Headers.Authorization = new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY4MDY0NzIsImlhdCI6MTY3NjcyMDA3MiwidXNlcl9ndWlkIjoiMzczNDAzYTQtYWY4MC0xMWVkLThhMDktMDI0MmFjMTMwMDAyIn0.W7h-Ef2k6bAmYqxzqpyjOrn2akgHIWXo_T4BHEV1-TA");
-                // using HttpResponseMessage response = await client.SendAsync(req);
-                //Console.WriteLine(response.EnsureSuccessStatusCode());
-
-                //jsonResponse = await response.Content.ReadAsStringAsync();
-
-            }
-            catch
-            {
-                return View();
-
-            }
-
-
-            var clientHandler = new HttpClientHandler();
-            var client = new HttpClient(clientHandler);
-            client.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzY4MDY0NzIsImlhdCI6MTY3NjcyMDA3MiwidXNlcl9ndWlkIjoiMzczNDAzYTQtYWY4MC0xMWVkLThhMDktMDI0MmFjMTMwMDAyIn0.W7h-Ef2k6bAmYqxzqpyjOrn2akgHIWXo_T4BHEV1-TA");
-            //Console.WriteLine(sharedClient.ToString());
-            return RedirectToAction("Index", "Home");
-        }
 
         [HttpGet]
         public ActionResult Register()
@@ -127,7 +95,7 @@ namespace OnBoarding.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(String email, String password)
         {
-
+            // Data model for registration
             using StringContent jsonRegisterContent = new(
                JsonConvert.SerializeObject(new
                {
@@ -136,29 +104,30 @@ namespace OnBoarding.Controllers
                }),
                Encoding.UTF8,
                "application/json");
-            String jsonResponse;
-            try
+
+
+            // Post data model to server
+            var req = new HttpRequestMessage()
             {
-                //sing HttpResponseMessage response = await sharedClient.PostAsync("user/register", jsonRegisterContent);
-                //Console.WriteLine(response.EnsureSuccessStatusCode());
+                RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
+            };
+            req.Method = HttpMethod.Post;
+            req.RequestUri = new Uri(req.RequestUri.ToString() + "user/register");
+            req.Content = jsonRegisterContent;
+            using HttpResponseMessage response = await client.SendAsync(req);
 
-                //jsonResponse = await response.Content.ReadAsStringAsync();
+            // Write return code for data
+            Console.WriteLine(response.EnsureSuccessStatusCode());
 
-            }
-            catch
-            {
-                ViewBag.Error = "error";
-                return View();
-                
-            }
+            // Get JWT token
+            var jsonResponse = await response.Content.ReadAsStringAsync();
+            var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
+            Console.WriteLine("JWT: " + jsonBody.JWT);
 
-            
+            // Add JWT to local storage
+            storage.Store(KEY, jsonBody.JWT);
 
-            //var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
-            //Console.WriteLine("JWT: " + jsonBody.JWT);
-            //storage.Store(KEY, jsonBody.JWT);
-
-
+            // Verification and localization for token
             string localToken;
             if (storage.Exists(KEY))
             {
@@ -166,17 +135,21 @@ namespace OnBoarding.Controllers
             }
             else
             {
-                return View();
+                return View("Index", "Home");
             }
 
-            using (var requestMessage =
-            new HttpRequestMessage(HttpMethod.Get, "http://192.168.1.56:8080/api/v1/"))
+            // Post JWT to header
+            var req2 = new HttpRequestMessage()
             {
-                requestMessage.Headers.Authorization =
-                    new AuthenticationHeaderValue("Bearer", localToken);
+                RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
+            };
+            req2.RequestUri = new Uri(req2.RequestUri.ToString() + "test");
+            req2.Method = HttpMethod.Get;
+            req2.Headers.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
+            using HttpResponseMessage response2 = await client.SendAsync(req2);
 
-               // await sharedClient.SendAsync(requestMessage);
-            }
+            // Write return code for JWT
+            Console.WriteLine(response2.EnsureSuccessStatusCode());
 
             return RedirectToAction("Index", "Home");
         }
