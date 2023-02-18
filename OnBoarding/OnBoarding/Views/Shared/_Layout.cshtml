@@ -21,10 +21,10 @@
             <div class="collapse navbar-collapse justify-content-between" id="navbarText">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">О подразделении</a>
+                        <a class="nav-link" href="../Views/Home/Quests.cshtml">Квесты</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">О команде</a>
+                        <a class="nav-link" href="#">Таблица лидеров</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Документация</a>
@@ -69,65 +69,63 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
-    <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="logInModalLabel">Добро пожаловать</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
+    <form method="post" action="/Authorize/Auth">
+        <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="logInModalLabel">Добро пожаловать</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+
                         <div class="mb-3">
                             <label for="email-for-login" class="col-form-label">Email:</label>
-                            <input type="email" class="form-control" id="email-for-login">
+                            <input type="email" name="email" class="form-control" id="email-for-login">
                         </div>
                         <div class="mb-3">
                             <label for="pswd-for-login" class="col-form-label">Password:</label>
-                            <input type="password" class="form-control" id="pswd-for-login">
+                            <input type="password" name="password" class="form-control" id="pswd-for-login">
                         </div>
-                    </form>
-                    <div class="mb-3 d-flex justify-content-center">
-                        <p class="mx-1">Нет аккаунта?</p>
-                        <a style="cursor: pointer" data-dismiss="modal" data-toggle="modal" data-target="#registerModal"><b>Зарегистрироваться</b></a>
+
+                        <div class="mb-3 d-flex justify-content-center">
+                            <p class="mx-1">Нет аккаунта?</p>
+                            <a style="cursor: pointer" data-dismiss="modal" data-toggle="modal" data-target="#registerModal"><b>Зарегистрироваться</b></a>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-modal">Войти</button>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-modal">Войти</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label for="username-for-register" class="col-form-label">Username:</label>
-                            <input type="text" class="form-control" id="username-for-register">
-                        </div>
+    </form>
+    <form method="post" action="/Authorize/Register">
+        <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
                         <div class="mb-3">
                             <label for="email-for-register" class="col-form-label">Email:</label>
-                            <input type="email" class="form-control" id="email-for-register">
+                            <input name="email" type="email" class="form-control" id="email-for-register">
                         </div>
                         <div class="mb-3">
                             <label for="pswd-for-register" class="col-form-label">Password:</label>
-                            <input type="password" class="form-control" id="pswd-for-register">
+                            <input name="password" type="password" class="form-control" id="pswd-for-register">
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-modal">Зарегистрироваться</button>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-modal">Зарегистрироваться</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </form>
 </body>
 </html>
 
@@ -173,40 +171,40 @@
         width: 40%;
     }
 
-    .modal-content{
+    .modal-content {
         background-color: #8856e7;
         color: #daef14;
     }
 
     .btn-modal {
-    color: #8856e7;
-    background-color: #daef14;
-    border-color: #daef14;
+        color: #8856e7;
+        background-color: #daef14;
+        border-color: #daef14;
     }
 
-    .btn-modal:hover {
-    color: #8856e7;
-    background-color: #c8d92a;
-    border-color: #c8d92a;
-    }
+        .btn-modal:hover {
+            color: #8856e7;
+            background-color: #c8d92a;
+            border-color: #c8d92a;
+        }
 
-    .form-control{
+    .form-control {
         background-color: #b99bf1;
         color: #ffffff;
     }
 
-    .form-control:focus{
-        background-color: #b99bf1;
-        color: #ffffff;
-    }
+        .form-control:focus {
+            background-color: #b99bf1;
+            color: #ffffff;
+        }
 
-    .bg-menu{
+    .bg-menu {
         color: #daef14;
         background-color: #8856e7;
     }
 
-    .nav-link{
-        color: #daef14!important;
+    .nav-link {
+        color: #daef14 !important;
     }
 
 </style>

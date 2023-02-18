@@ -33,8 +33,8 @@ namespace OnBoarding.Controllers
             using StringContent jsonContent = new(
             JsonConvert.SerializeObject(new
                 {
-                    email = "admin@example.com",
-                    password = "admin"
+                    email = email,
+                    password = password
                 }),
                 Encoding.UTF8,
                 "application/json");
@@ -77,9 +77,8 @@ namespace OnBoarding.Controllers
             using StringContent jsonRegisterContent = new(
                JsonConvert.SerializeObject(new
                {
-                   email = "admin1488@example.com",
-                   password = "admin",
-                   userName = "someasdasdasdadasdaseUserName"
+                   email = email,
+                   password = password
                }),
                Encoding.UTF8,
                "application/json");
