@@ -27,12 +27,18 @@ namespace OnBoarding.Controllers
         public async Task<IActionResult> Index()
         {
             String jsonResponse;
+            String jsonResponseDivisions;
             try
             {
-                using HttpResponseMessage response = await sharedClient.GetAsync("division/all");
+                using HttpResponseMessage response = await sharedClient.GetAsync("quests/all");
                 Console.WriteLine(response.EnsureSuccessStatusCode());
 
                 jsonResponse = await response.Content.ReadAsStringAsync();
+
+                using HttpResponseMessage responseDivision = await sharedClient.GetAsync("division/all");
+                Console.WriteLine(responseDivision.EnsureSuccessStatusCode());
+
+                jsonResponseDivisions = await responseDivision.Content.ReadAsStringAsync();
 
             }
             catch
@@ -42,8 +48,16 @@ namespace OnBoarding.Controllers
             }
 
 
-            var jsonBody = JsonConvert.DeserializeObject<DivisionsList>(jsonResponse);
-            var model = jsonBody.divisions;
+            var jsonBody = JsonConvert.DeserializeObject<QuestList>(jsonResponse);
+
+            var jsonBodyDivisions = JsonConvert.DeserializeObject<DivisionsList>(jsonResponseDivisions);
+
+            var model = new QuestDivision()
+            {
+                Quests = jsonBody.quests,
+                Subdivisions = jsonBodyDivisions.divisions
+
+            };
             Console.WriteLine(model);
 
 

@@ -129,7 +129,7 @@ namespace OnBoarding.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
 
             }
 
@@ -167,7 +167,7 @@ namespace OnBoarding.Controllers
             }
             catch
             {
-                return View();
+                return RedirectToAction(nameof(Index));
 
             }
 

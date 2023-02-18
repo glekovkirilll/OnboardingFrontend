@@ -7,8 +7,8 @@
 <h1 class="m-3 noneCursor">Список подразделений</h1>
 <div class="container mt-3">
 
-    <a type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#createSubdivisionModal">Создать новое подразделение</a>
-
+    <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#createSubdivisionModal">Создать новое подразделение</button>
+    <button type="button" class="btn btn-modal m-2 addUser" data-toggle="modal" data-target="#addUserSubdivisionModal">Добавить пользователя</button>
     <div class="list-group list-group-bordered">
         @foreach (var item in Model.Subdivisions)
         {
@@ -27,9 +27,7 @@
                 </div>
                 <div class="list-group-item p-2 flex-fill" style="width: 30%">
                     <div class="list-group-item-body">
-                        <input class="subdivisionId" value="@item.Id" hidden/>
                         <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editSubdivisionModal">Редактировать подразделение</button> |
-                        <button type="button" class="btn btn-modal m-2 addUser" data-toggle="modal" data-target="#addUserSubdivisionModal">Добавить пользователя</button> |
                         <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteSubdivisionModal">Удалить</button>
                     </div>
                 </div>
@@ -136,7 +134,15 @@
                             }
                         </select>
                     </div>
-                    <input hidden value="" name="divisionId" id="divisionId-for-subdivision"/>
+                    <div class="mb-3">
+                        <label for="division-for-subdivision" class="col-form-label">Подразделение:</label>
+                        <select name="divisionId" id="division-for-subdivision">
+                            @foreach (var division in Model.Subdivisions)
+                            {
+                                <option value="@division.Id">@division.Name</option>
+                            }
+                        </select>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-modal">Создать</button>
@@ -145,10 +151,3 @@
         </div>
     </div>
 </form>
-
-<script>
-    $(document).on("click", ".addUser", function () {
-     var divisionId = $(this).parent.find(".subdivisionId");
-     $(".modal-body #divisionId-for-subdivision").val( divisionId );
-});
-</script>

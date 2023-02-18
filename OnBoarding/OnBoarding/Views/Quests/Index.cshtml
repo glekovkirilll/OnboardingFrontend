@@ -1,41 +1,116 @@
-﻿@*@model IEnumerable<OnBoarding.Models.Quest>
-*@
+﻿@model QuestDivision
+
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="m-3 noneCursor">Банк квестов</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @*@Html.DisplayNameFor(model => model.Name)*@
-            </th>
-            <th>
-@*                @Html.DisplayNameFor(model => model.Description)
-*@            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@*@foreach (var item in Model) {*@
-        <tr>
-            <td>
-@*                @Html.DisplayFor(modelItem => item.Name)
-*@            </td>
-            <td>
-@*                @Html.DisplayFor(modelItem => item.Description)
-*@            </td>
-            <td>
-                <a asp-action="Edit" >Edit</a> |
-                <a asp-action="Details">Details</a> |
-                <a asp-action="Delete" >Delete</a>
-            </td>
-        </tr>
-@*}*@
-    </tbody>
-</table>
+<div class="container mt-3">
+    <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#createQuestModal">Создать новый квест</button>
+    <div class="list-group list-group-bordered">
+        @foreach (var item in Model.Quests)
+        {
+            <div class="list-group list-group-horizontal">
+                <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                    <div class="list-group-item-body">
+                        <div class="list-group-item-text"><b>Название</b></div>
+                        <div class="list-group-item-title">@item.Name</div>
+                    </div>
+                </div>
+                <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                    <div class="list-group-item-body">
+                        <div class="list-group-item-text"><b>Описание</b></div>
+                        <div class="list-group-item-title">@item.Description</div>
+                    </div>
+                </div>
+                <div class="list-group-item p-2 flex-fill" style="width: 30%">
+                    <div class="list-group-item-body">
+                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editQuestModal">Редактировать квест</button> |
+                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteQuestModal">Удалить</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<form method="post" asp-action="Edit">
+    <div class="modal fade" id="editQuestModal" tabindex="-1" role="dialog" aria-labelledby="editQuestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editQuestModalLabel">Редактирование квеста</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name-for-quest" class="col-form-label">Название:</label>
+                        <input type="text" name="name" class="form-control" id="name-for-quest">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description-for-quest" class="col-form-label">Описание:</label>
+                        <textarea type="text" name="description" class="form-control" id="description-for-quest"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" asp-action="Delete">
+    <div class="modal fade" id="deleteQuestModal" tabindex="-1" role="dialog" aria-labelledby="deleteQuestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteQuestModalLabel">Удаление квеста</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    Вы точно хотите удалить этот квест?
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" asp-action="Create">
+    <div class="modal fade" id="createQuestModal" tabindex="-1" role="dialog" aria-labelledby="createQuestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createQuestModalLabel">Создание квеста</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name-for-quest" class="col-form-label">Название:</label>
+                        <input type="text" name="name" class="form-control" id="name-for-quest">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description-for-quest" class="col-form-label">Описание:</label>
+                        <textarea type="text" name="description" class="form-control" id="description-for-quest"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="division-for-subdivision" class="col-form-label">Подразделение:</label>
+                        <select name="divisionId" id="division-for-subdivision">
+                            @foreach (var division in Model.Subdivisions)
+                            {
+                                <option value="@division.Id">@division.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Создать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
