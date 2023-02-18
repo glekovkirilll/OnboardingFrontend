@@ -18,7 +18,7 @@ namespace OnBoarding.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult LogIn()
         {
             return View();
         }

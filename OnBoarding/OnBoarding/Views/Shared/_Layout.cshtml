@@ -30,9 +30,9 @@
                         <a class="nav-link" href="#">Документация</a>
                     </li>
                 </ul>
-                <form class="form-inline">
-                    <a class="btn btn-outline-secondary m-2" href="#">Войти</a>
-                </form>
+                <div class="form-inline">
+                    <button type="button" class="btn btn-outline-secondary m-2" data-toggle="modal" data-target="#logInModal">Войти</button>
+                </div>
             </div>
         </nav>
     </header>
@@ -64,7 +64,37 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logInModalLabel">Добро пожаловать</h5>
+        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="mb-3">
+            <label for="recipient-email" class="col-form-label">Email:</label>
+            <input type="text" class="form-control" id="email-for-login">
+          </div>
+          <div class="mb-3">
+            <label for="message-text" class="col-form-label">Password:</label>
+            <input type="password" class="form-control" id="pswd-for-login">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Закрыть</button>
+        <button type="button" class="btn btn-secondary">Войти</button>
+      </div>
+    </div>
+  </div>
+</div>
 </body>
 </html>
 
