@@ -111,5 +111,29 @@ namespace OnBoarding.Controllers
 
             return RedirectToAction("Index", "Home"); 
         }
+
+        public async Task<IActionResult> Leaderboard()
+        {
+            String jsonResponse;
+            try
+            {
+                using HttpResponseMessage response = await sharedClient.GetAsync("user/all");
+                Console.WriteLine(response.EnsureSuccessStatusCode());
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+            }
+            catch
+            {
+                return View();
+
+            }
+
+
+            var jsonBody = JsonConvert.DeserializeObject<UserList>(jsonResponse);
+            var model = jsonBody.users;
+            Console.WriteLine(model);
+            return View(model);
+        }
     }
 }

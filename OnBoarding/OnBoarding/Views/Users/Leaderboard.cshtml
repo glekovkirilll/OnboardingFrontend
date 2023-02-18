@@ -1,0 +1,28 @@
+﻿@model IEnumerable<OnBoarding.Models.User>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1 class="m-3 noneCursor">Доска лидеров</h1>
+<div class="container mt-3">
+    <div class="list-group list-group-bordered">
+        @foreach (var item in Model)
+        {
+            <div class="list-group list-group-horizontal">
+                <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                    <div class="list-group-item-body">
+                        <div class="list-group-item-text"><b>Email</b></div>
+                        <div class="list-group-item-title">@item.EMail</div>
+                    </div>
+                </div>
+                <div class="list-group-item p-2 flex-fill" style="width: 30%">
+                    <div class="list-group-item-body">
+                        <div class="list-group-item-text"><b>Количество очков</b></div>
+                        <div class="list-group-item-title">0</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
