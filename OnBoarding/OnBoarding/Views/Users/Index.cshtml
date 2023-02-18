@@ -4,27 +4,28 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="m-3 noneCursor">Список пользователей</h1>
+<div class="container mt-3">
+    <p>
+        <a asp-action="Create">Создать нового пользователя</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    E-Mail
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                ID
-            </th>
-            <th>
-                E-Mail
-               
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model) {
-           
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.id)
@@ -33,12 +34,47 @@
                         @Html.DisplayFor(modelItem => item.EMail)
                     </td>
                     <td>
-                        <a asp-action="Edit">Edit</a> |
-                        <a asp-action="Details">Details</a> |
+                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editAboutModal">Редактировать о себе</button> |
                         <a asp-action="Delete">Delete</a>
                     </td>
                 </tr>
-                   
-        }
-    </tbody>
-</table>
+
+            }
+        </tbody>
+    </table>
+</div>
+
+<form method="post" action="/Users/Edit">
+        <div class="modal fade" id="editAboutModal" tabindex="-1" role="dialog" aria-labelledby="editAboutModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="editAboutModalLabel">Информация о пользователе</h5>
+                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                    </div>
+                    <div class="modal-body">
+
+                        <div class="mb-3">
+                            <label for="fio-for-about" class="col-form-label">ФИО:</label>
+                            <input type="text" name="fio" class="form-control" id="fio-for-about">
+                        </div>
+                        <div class="mb-3">
+                            <label for="about-for-about" class="col-form-label">О себе:</label>
+                            <textarea type="text" name="about" class="form-control" id="about-for-about"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneNumber-for-about" class="col-form-label">Номер телефона:</label>
+                            <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber-for-about">
+                        </div>
+                        <div class="mb-3">
+                            <label for="telegramId-for-about" class="col-form-label">ID telegram:</label>
+                            <input type="text" name="telegramId" class="form-control" id="telegramId-for-about">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-modal">Сохранить</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+</form>
