@@ -28,7 +28,27 @@ namespace OnBoarding.Controllers
         // GET: Subdivisions
         public async Task<IActionResult> Index()
         {
-              return View(/*await _context.Subdivision.ToListAsync()*/);
+            String jsonResponse;
+            try
+            {
+                using HttpResponseMessage response = await sharedClient.GetAsync("division/all");
+                Console.WriteLine(response.EnsureSuccessStatusCode());
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+            }
+            catch
+            {
+                return View();
+
+            }
+
+
+            var jsonBody = JsonConvert.DeserializeObject<DivisionsList>(jsonResponse);
+            var model = jsonBody.divisions;
+            Console.WriteLine(model);
+            return View(model);
+            
         }
 
         // GET: Subdivisions/Details/5
@@ -65,7 +85,7 @@ namespace OnBoarding.Controllers
            using StringContent jsonContent = new(
            JsonConvert.SerializeObject(new
            {
-               description = subdivision.Occupation,
+               description = subdivision.Description,
                name = subdivision.Name
            }),
                Encoding.UTF8,

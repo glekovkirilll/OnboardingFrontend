@@ -1,5 +1,5 @@
-﻿@*@model IEnumerable<OnBoarding.Models.Subdivision>
-*@
+﻿@model IEnumerable<OnBoarding.Models.Subdivision>
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -13,22 +13,22 @@
     <thead>
         <tr>
             <th>
-                @*@Html.DisplayNameFor(model => model.Name)*@
+                Название
             </th>
             <th>
-@*                @Html.DisplayNameFor(model => model.Occupation)
-*@            </th>
+                Описание
+           </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@*@foreach (var item in Model) {*@
+@foreach (var item in Model) {
         <tr>
             <td>
-                @*@Html.DisplayFor(modelItem => item.Name)*@
+                @Html.DisplayFor(modelItem => item.Name)
             </td>
             <td>
-                @*@Html.DisplayFor(modelItem => item.Occupation)*@
+                @Html.DisplayFor(modelItem => item.Description)
             </td>
             <td>
                 <a asp-action="Edit" >Edit</a> |
@@ -36,6 +36,6 @@
                 <a asp-action="Delete" >Delete</a>
             </td>
         </tr>
-@*}*@
+}
     </tbody>
 </table>
