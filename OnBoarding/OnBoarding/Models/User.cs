@@ -2,7 +2,8 @@
 {
     public class User
     {
-        public String Id { get; set; }
+        public String id { get; set; }
         public String EMail { get; set; }
+        public UserInfo about { get; set; }
     }
 }

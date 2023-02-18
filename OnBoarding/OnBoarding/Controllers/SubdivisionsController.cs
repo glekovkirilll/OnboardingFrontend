@@ -80,7 +80,7 @@ namespace OnBoarding.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Occupation")] Subdivision subdivision)
+        public async Task<IActionResult> Create([Bind("Name,Description")] Subdivision subdivision)
         {
            using StringContent jsonContent = new(
            JsonConvert.SerializeObject(new
@@ -112,7 +112,7 @@ namespace OnBoarding.Controllers
 
             //var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
             //Console.WriteLine("JWT: " + jsonBody.JWT);
-            return View();
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Subdivisions/Edit/5

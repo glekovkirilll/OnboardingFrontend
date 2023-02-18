@@ -62,7 +62,7 @@ namespace OnBoarding.Controllers
             }
 
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         [HttpGet]
@@ -114,7 +114,7 @@ namespace OnBoarding.Controllers
                 return View();
             }
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
     }
 }

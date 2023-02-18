@@ -5,8 +5,10 @@ using System.Net.Http.Json;
 
 namespace OnBoarding.Controllers
 {
+    
     public class UsersController : Controller
     {
+        UserInfo about;
         private static HttpClient sharedClient = new()
         {
             BaseAddress = new Uri("http://192.168.1.56:8080/api/v1/"),
