@@ -10,7 +10,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-menu">
             <a class="navbar-brand" href="#">
                 <div id="logo-picture"></div>
                 <div id="logo-name"><h4>Продукт</h4></div>
@@ -31,7 +31,7 @@
                     </li>
                 </ul>
                 <div class="form-inline">
-                    <button type="button" class="btn btn-outline-secondary m-2" data-toggle="modal" data-target="#logInModal">Войти</button>
+                    <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#logInModal">Войти</button>
                 </div>
             </div>
         </nav>
@@ -42,7 +42,7 @@
         </main>
     </div>
 
-   <footer class="myFooter">
+    <footer class="myFooter">
         <div class="m-4">
             <div class="links-in-footer">
                 <a>Контакты</a>
@@ -65,76 +65,148 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     @await RenderSectionAsync("Scripts", required: false)
 
-<div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="logInModalLabel">Добро пожаловать</h5>
-        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="mb-3">
-            <label for="recipient-email" class="col-form-label">Email:</label>
-            <input type="text" class="form-control" id="email-for-login">
-          </div>
-          <div class="mb-3">
-            <label for="message-text" class="col-form-label">Password:</label>
-            <input type="password" class="form-control" id="pswd-for-login">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Закрыть</button>
-        <button type="button" class="btn btn-secondary">Войти</button>
-      </div>
+    <div class="modal fade" id="logInModal" tabindex="-1" role="dialog" aria-labelledby="logInModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="logInModalLabel">Добро пожаловать</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="email-for-login" class="col-form-label">Email:</label>
+                            <input type="email" class="form-control" id="email-for-login">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pswd-for-login" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="pswd-for-login">
+                        </div>
+                    </form>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <p class="mx-1">Нет аккаунта?</p>
+                        <a style="cursor: pointer" data-dismiss="modal" data-toggle="modal" data-target="#registerModal"><b>Зарегистрироваться</b></a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-modal">Войти</button>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
+
+    <div class="modal fade" id="registerModal" tabindex="-1" role="dialog" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">Регистрация</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="username-for-register" class="col-form-label">Username:</label>
+                            <input type="text" class="form-control" id="username-for-register">
+                        </div>
+                        <div class="mb-3">
+                            <label for="email-for-register" class="col-form-label">Email:</label>
+                            <input type="email" class="form-control" id="email-for-register">
+                        </div>
+                        <div class="mb-3">
+                            <label for="pswd-for-register" class="col-form-label">Password:</label>
+                            <input type="password" class="form-control" id="pswd-for-register">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-modal">Зарегистрироваться</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
 
 <style>
-    .navbar-brand{
-    padding-bottom: 0;
-  }
-  #logo-name{
-    color: #B3E427;
-    margin-left: 1rem;
-    float: left;
-  }
-  #logo-picture{
-    width: 20px;
-    height: 20px;
-    background: #B3E427;
-    border-radius: 50%;
-    margin-left: 1rem;
-    float: left;
-    margin-top: 0.4rem;
-  }
+    .navbar-brand {
+        padding-bottom: 0;
+    }
 
-.myFooter {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 210px;
-    background-color: #ECE8FF;
-    color: #3A3A3A;
-}
+    #logo-name {
+        color: #B3E427;
+        margin-left: 1rem;
+        float: left;
+    }
 
-.links-in-footer {
-    color: #3A3A3A;
-    margin-left: 1rem;
-    margin-top: 0.5rem;
-    font-family: sans-serif;
-}
+    #logo-picture {
+        width: 20px;
+        height: 20px;
+        background: #B3E427;
+        border-radius: 50%;
+        margin-left: 1rem;
+        float: left;
+        margin-top: 0.4rem;
+    }
 
-#carouselExampleIndicators {
-    height: 40%;
-    width: 40%;
-}
+    .myFooter {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: 210px;
+        background-color: #ECE8FF;
+        color: #3A3A3A;
+    }
+
+    .links-in-footer {
+        color: #3A3A3A;
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+        font-family: sans-serif;
+    }
+
+    #carouselExampleIndicators {
+        height: 40%;
+        width: 40%;
+    }
+
+    .modal-content{
+        background-color: #8856e7;
+        color: #daef14;
+    }
+
+    .btn-modal {
+    color: #8856e7;
+    background-color: #daef14;
+    border-color: #daef14;
+    }
+
+    .btn-modal:hover {
+    color: #8856e7;
+    background-color: #c8d92a;
+    border-color: #c8d92a;
+    }
+
+    .form-control{
+        background-color: #b99bf1;
+        color: #ffffff;
+    }
+
+    .form-control:focus{
+        background-color: #b99bf1;
+        color: #ffffff;
+    }
+
+    .bg-menu{
+        color: #daef14;
+        background-color: #8856e7;
+    }
+
+    .nav-link{
+        color: #daef14!important;
+    }
+
 </style>
