@@ -109,7 +109,7 @@ namespace OnBoarding.Controllers
             Globals.authorizedUser = jsonBody2.user;
 
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction("Index", "Home"); 
         }
     }
 }
