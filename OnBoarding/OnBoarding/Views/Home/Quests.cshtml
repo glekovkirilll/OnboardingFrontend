@@ -2,4 +2,32 @@
     ViewData["Title"] = "Quest Page";
 }
 
+<h1 class="m-3 noneCursor">Список квестов</h1>
+<div class="container mt-3">
+    <div class="row m-2">
+        <div class="list-group border d-flex m-2 p-3">
+            <div class="pointerCursor" data-toggle="collapse"
+                 data-target="#block-name-podrazdelenie"
+                 title="Нажмите для разворачивания блока">
+                <div class="zeroBorderLeft" style="width: 100%;">
+                    <h3><b>Название подразделения</b></h3>
+                </div>
+            </div>
 
+            <div class="collapse" id="block-name-podrazdelenie">
+                <div class="list-group list-group-horizontal">
+                    <div class="list-group-item flex-fill col-8 noneCursor">
+                        Название квеста
+                    </div>
+                    <div class="list-group-item flex-fill col-2 ml-auto">
+                        <a class="btn btn-modal">Подробнее</a>
+                    </div>
+                    <div class="list-group-item flex-fill col-2 ml-auto">
+                        <a class="btn btn-modal">Навигация</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
