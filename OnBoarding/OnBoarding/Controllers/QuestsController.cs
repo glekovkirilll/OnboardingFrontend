@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -30,7 +31,7 @@ namespace OnBoarding.Controllers
             String jsonResponseDivisions;
             try
             {
-                using HttpResponseMessage response = await sharedClient.GetAsync("quests/all");
+                using HttpResponseMessage response = await sharedClient.GetAsync("quest/all");
                 Console.WriteLine(response.EnsureSuccessStatusCode());
 
                 jsonResponse = await response.Content.ReadAsStringAsync();
@@ -82,17 +83,51 @@ namespace OnBoarding.Controllers
             return View(/*quest*/);
         }
 
-        // GET: Quests/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
+       
         // POST: Quests/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("DivisionId,Name,Description")] CreateQuest quest)
+        {
+            using StringContent jsonContent = new(
+           JsonConvert.SerializeObject(new
+           {
+               description = quest.Description,
+               divisionID = quest.DivisionId,
+               name = quest.Name
+               
+           }),
+               Encoding.UTF8,
+               "application/json");
+
+            String jsonResponse;
+            try
+            {
+                using HttpResponseMessage response = await sharedClient.PostAsync("quest/add", jsonContent);
+                Console.WriteLine(response.EnsureSuccessStatusCode());
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+            }
+            catch
+            {
+                return RedirectToAction(nameof(Index));
+
+            }
+
+            var jsonBody = JsonConvert.DeserializeObject<object>(jsonResponse);
+            Console.WriteLine(jsonBody);
+
+
+            //var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
+            //Console.WriteLine("JWT: " + jsonBody.JWT);
+            return RedirectToAction(nameof(Index));
+        }
+
+        // GET: Quests/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+
         public async Task<IActionResult> Create([Bind("Id,Name,Description")] Quest quest)
         {
             //if (ModelState.IsValid)

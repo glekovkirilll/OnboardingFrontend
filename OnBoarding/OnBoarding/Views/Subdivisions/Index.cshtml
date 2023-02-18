@@ -1,4 +1,5 @@
-﻿@model UserSubdivionRole
+﻿@using OnBoarding.Models
+@model UserSubdivionRole
 
 @{
     ViewData["Title"] = "Index";
@@ -10,29 +11,37 @@
     <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#createSubdivisionModal">Создать новое подразделение</button>
     <button type="button" class="btn btn-modal m-2 addUser" data-toggle="modal" data-target="#addUserSubdivisionModal">Добавить пользователя</button>
     <div class="list-group list-group-bordered">
-        @foreach (var item in Model.Subdivisions)
+        @if (Model!= null)
         {
-            <div class="list-group list-group-horizontal">
-                <div class="list-group-item p-2 flex-fill" style="width: 35%">
-                    <div class="list-group-item-body">
-                        <div class="list-group-item-text"><b>Название</b></div>
-                        <div class="list-group-item-title">@item.Name</div>
+            @foreach (var item in Model.Subdivisions)
+            {
+                <div class="list-group list-group-horizontal">
+                    <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                        <div class="list-group-item-body">
+                            <div class="list-group-item-text"><b>Название</b></div>
+                            <div class="list-group-item-title">@item.Name</div>
+                        </div>
+                    </div>
+                    <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                        <div class="list-group-item-body">
+                            <div class="list-group-item-text"><b>Описание</b></div>
+                            <div class="list-group-item-title">@item.Description</div>
+                        </div>
+                    </div>
+                    <div class="list-group-item p-2 flex-fill" style="width: 30%">
+                        <div class="list-group-item-body">
+                            <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editSubdivisionModal">Редактировать подразделение</button> |
+                            <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteSubdivisionModal">Удалить</button>
+                        </div>
                     </div>
                 </div>
-                <div class="list-group-item p-2 flex-fill" style="width: 35%">
-                    <div class="list-group-item-body">
-                        <div class="list-group-item-text"><b>Описание</b></div>
-                        <div class="list-group-item-title">@item.Description</div>
-                    </div>
-                </div>
-                <div class="list-group-item p-2 flex-fill" style="width: 30%">
-                    <div class="list-group-item-body">
-                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editSubdivisionModal">Редактировать подразделение</button> |
-                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteSubdivisionModal">Удалить</button>
-                    </div>
-                </div>
-            </div>
+            }
         }
+        else
+        {
+            <h3>Подразделений для отображения нет</h3>
+        }
+
     </div>
 </div>
 

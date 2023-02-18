@@ -1,4 +1,5 @@
-﻿@model QuestDivision
+﻿@using OnBoarding.Models
+@model QuestDivision
 
 @{
     ViewData["Title"] = "Index";
@@ -9,29 +10,37 @@
 <div class="container mt-3">
     <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#createQuestModal">Создать новый квест</button>
     <div class="list-group list-group-bordered">
-        @foreach (var item in Model.Quests)
+        @if (Model != null)
         {
-            <div class="list-group list-group-horizontal">
-                <div class="list-group-item p-2 flex-fill" style="width: 35%">
-                    <div class="list-group-item-body">
-                        <div class="list-group-item-text"><b>Название</b></div>
-                        <div class="list-group-item-title">@item.Name</div>
+            @foreach (var item in Model.Quests)
+            {
+                <div class="list-group list-group-horizontal">
+                    <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                        <div class="list-group-item-body">
+                            <div class="list-group-item-text"><b>Название</b></div>
+                            <div class="list-group-item-title">@item.Name</div>
+                        </div>
+                    </div>
+                    <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                        <div class="list-group-item-body">
+                            <div class="list-group-item-text"><b>Описание</b></div>
+                            <div class="list-group-item-title">@item.Description</div>
+                        </div>
+                    </div>
+                    <div class="list-group-item p-2 flex-fill" style="width: 30%">
+                        <div class="list-group-item-body">
+                            <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editQuestModal">Редактировать квест</button> |
+                            <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteQuestModal">Удалить</button>
+                        </div>
                     </div>
                 </div>
-                <div class="list-group-item p-2 flex-fill" style="width: 35%">
-                    <div class="list-group-item-body">
-                        <div class="list-group-item-text"><b>Описание</b></div>
-                        <div class="list-group-item-title">@item.Description</div>
-                    </div>
-                </div>
-                <div class="list-group-item p-2 flex-fill" style="width: 30%">
-                    <div class="list-group-item-body">
-                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editQuestModal">Редактировать квест</button> |
-                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteQuestModal">Удалить</button>
-                    </div>
-                </div>
-            </div>
+            }
         }
+        else
+        {
+            <h3>Квестов для отображения нет</h3>
+        }
+
     </div>
 </div>
 
