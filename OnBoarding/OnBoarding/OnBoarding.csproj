@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="bootstrap" Version="5.2.3" />
+    <PackageReference Include="LocalStorage" Version="2.1.0" />
   </ItemGroup>
 
 </Project>
