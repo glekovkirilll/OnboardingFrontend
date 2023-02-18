@@ -101,3 +101,11 @@ body {
 .noneCursor {
     cursor: default;
 }
+
+.link-without-hover {
+    color: #daef14!important;
+}
+
+    .link-without-hover:hover {
+        color: #b1c20d;
+    }
