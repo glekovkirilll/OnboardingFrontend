@@ -1,4 +1,5 @@
-﻿@{
+﻿@model DivisionsAndQuests
+@{
     ViewData["Title"] = "Quest Page";
 }
 
@@ -8,26 +9,32 @@
         <button class="btn btn-modal col-2" style="margin-left: 0.5rem" data-toggle="modal" data-target="#createQuestModal">Создать задачу</button>
         <div class="list-group border d-flex m-2 p-3">
             <div class="pointerCursor d-flex flex-row justify-content-between">
-                <div class="zeroBorderLeft" style="width: 100%;" data-toggle="collapse"
+                @foreach(var item in Model.Divisions.divisions){
+                    <div class="zeroBorderLeft" style="width: 100%;" data-toggle="collapse"
                      data-target="#block-name-podrazdelenie"
                      title="Нажмите для разворачивания блока">
-                    <h3><b>Название подразделения</b></h3>
-                </div>
+                        <h3><b>@item.Name</b></h3>
+                    </div>
+                }                
                 <a class="btn btn-modal mb-2" data-toggle="modal" data-target="#addQuestModal">Добавить квесты для подразделения</a>
             </div>
 
             <div class="collapse" id="block-name-podrazdelenie">
-                <div class="list-group list-group-horizontal">
-                    <div class="list-group-item flex-fill col-8 noneCursor">
-                        Название квеста
+                
+                    @foreach(var piece in Model.Quests.quests){
+                    <div class="list-group list-group-horizontal">
+                        <div class="list-group-item flex-fill col-8 noneCursor">
+                            @piece.Name
+                        </div>
+                        <div class="list-group-item flex-fill col-2 ml-auto">
+                            <a class="btn btn-modal">Подробнее</a>
+                        </div>
+                        <div class="list-group-item flex-fill col-2 ml-auto">
+                            <a class="btn btn-modal">Навигация</a>
+                        </div>
                     </div>
-                    <div class="list-group-item flex-fill col-2 ml-auto">
-                        <a class="btn btn-modal" >Подробнее</a>
-                    </div>
-                    <div class="list-group-item flex-fill col-2 ml-auto">
-                        <a class="btn btn-modal" >Навигация</a>
-                    </div>
-                </div>
+                    }                    
+                
             </div>
 
         </div>

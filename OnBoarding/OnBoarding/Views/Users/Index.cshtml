@@ -36,7 +36,7 @@
     </div>
 </div>
 
-<form method="post" action="Edit">
+<form method="post" action="/Users/Edit">
     <div class="modal fade" id="editAboutModal" tabindex="-1" role="dialog" aria-labelledby="editAboutModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -51,19 +51,19 @@
                     </div>
                     <div class="mb-3">
                         <label for="about-for-about" class="col-form-label">О себе:</label>
-                        <textarea type="text" name="about" class="form-control" id="about-for-about"></textarea>
+                        <textarea type="text" name="description" class="form-control" id="about-for-about"></textarea>
                     </div>
                     <div class="mb-3">
                         <label for="phoneNumber-for-about" class="col-form-label">Номер телефона:</label>
-                        <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber-for-about">
+                        <input type="tel" name="contact" class="form-control" id="phoneNumber-for-about">
                     </div>
-                    <div class="mb-3">
+                    @*<div class="mb-3">
                         <label for="telegramId-for-about" class="col-form-label">ID telegram:</label>
                         <input type="text" name="telegramId" class="form-control" id="telegramId-for-about">
-                    </div>
+                    </div>*@
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-modal">Сохранить</button>
+                    <button type="submit" class="btn btn-modal">Save</button>
                 </div>
             </div>
         </div>

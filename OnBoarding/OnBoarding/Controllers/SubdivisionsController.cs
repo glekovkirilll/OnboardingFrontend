@@ -95,52 +95,7 @@ namespace OnBoarding.Controllers
             return View(/*subdivision*/);
         }
 
-        // GET: Subdivisions/Create
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Subdivisions/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Name,Description")] Subdivision subdivision)
-        {
-           using StringContent jsonContent = new(
-           JsonConvert.SerializeObject(new
-           {
-               description = subdivision.Description,
-               name = subdivision.Name,
-               id = Guid.NewGuid()
-           }),
-               Encoding.UTF8,
-               "application/json");
-
-            String jsonResponse;
-            try
-            {
-                using HttpResponseMessage response = await sharedClient.PostAsync("division/create", jsonContent);
-                Console.WriteLine(response.EnsureSuccessStatusCode());
-
-                jsonResponse = await response.Content.ReadAsStringAsync();
-
-            }
-            catch
-            {
-                return RedirectToAction(nameof(Index));
-
-            }
-
-            var jsonBody = JsonConvert.DeserializeObject<object>(jsonResponse);
-            Console.WriteLine(jsonBody);
-
-
-            //var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
-            //Console.WriteLine("JWT: " + jsonBody.JWT);
-            return RedirectToAction(nameof(Index));
-        }
+        
 
         [HttpPost]
         [ValidateAntiForgeryToken]

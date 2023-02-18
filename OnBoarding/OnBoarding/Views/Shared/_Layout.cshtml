@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using OnBoarding.Controllers;
+@using static OnBoarding.Controllers.AuthorizeController
+
+@{
+    string token = Globals.JWTToken;
+
+    if(token != null){
+        Globals.isUserAuthorized = true;
+    };
+
+    Console.WriteLine(Globals.isUserAuthorized);
+}
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 @{
     var error = ViewBag.Error;
@@ -41,9 +56,20 @@
                         <a class="nav-link" href="@Url.Action("Index", "Quests")">Банк квестов</a>
                     </li>
                 </ul>
-                <div class="form-inline">
-                    <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#logInModal">Войти</button>
-                </div>
+
+                @{
+                    if (Globals.isUserAuthorized){
+                            <div class="form-inline">
+                                <p class="m-3">@Globals.authorizedUser.about.fio <p>
+                            </div>
+                    }
+                    else{
+                            <div class="form-inline">
+                                <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#logInModal">Войти</button>
+                            </div>
+                    }
+                }
+                
             </div>
         </nav>
     </header>

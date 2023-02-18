@@ -4,7 +4,8 @@ using Newtonsoft.Json;
 using System.Text;
 using OnBoarding.Models;
 using System.Net.Http.Headers;
-
+using static System.Net.Mime.MediaTypeNames;
+using Newtonsoft.Json.Linq;
 
 namespace OnBoarding.Controllers
 {
@@ -12,6 +13,16 @@ namespace OnBoarding.Controllers
     {
         LocalStorage storage = new LocalStorage();
         const string KEY = "JWTToken";
+
+        public static class Globals
+        {
+            public static String JWTToken { get; set; }
+            public static bool isUserAuthorized { get; set; } = false;
+            public static User authorizedUser { get; set; }
+
+
+        }
+
 
         private static HttpClient client = new HttpClient();
         private static HttpRequestMessage request = new HttpRequestMessage()
@@ -58,34 +69,40 @@ namespace OnBoarding.Controllers
 
             // Add JWT to local storage
             storage.Store(KEY, jsonBody.JWT);
-
+            
             // Verification and localization for token
-            string localToken;
+            
             if (storage.Exists(KEY))
             {
-                localToken = storage.Get(KEY).ToString();
+                Globals.JWTToken = storage.Get(KEY).ToString();
             }
             else
             {
                 return View("Auth");
             }
-
+            
             // Post JWT to header
             var req2 = new HttpRequestMessage()
             {
                 RequestUri = new Uri("http://192.168.1.56:8080/api/v1/"),
             };
-            req2.RequestUri = new Uri(req2.RequestUri.ToString() + "test");
+            req2.RequestUri = new Uri(req2.RequestUri.ToString() + "user/info");
             req2.Method = HttpMethod.Get;
-            req2.Headers.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
+            req2.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Globals.JWTToken);
             using HttpResponseMessage response2 = await client.SendAsync(req2);
+
+            var JsonResponse2 = await response2.Content.ReadAsStringAsync();
+            var jsonBody2 = JsonConvert.DeserializeObject<UserInfoViewModel>(JsonResponse2);
+            Console.WriteLine("FIO: " + jsonBody2.user);
+            Globals.authorizedUser = jsonBody2.user;
+
 
             // Write return code for JWT
             Console.WriteLine(response2.EnsureSuccessStatusCode());
 
             return RedirectToAction("Index", "Home");
         }
-
+        
 
         [HttpGet]
         public ActionResult Register()
@@ -128,10 +145,10 @@ namespace OnBoarding.Controllers
             storage.Store(KEY, jsonBody.JWT);
 
             // Verification and localization for token
-            string localToken;
             if (storage.Exists(KEY))
             {
-                localToken = storage.Get(KEY).ToString();
+                Globals.JWTToken = storage.Get(KEY).ToString();
+                
             }
             else
             {
@@ -145,7 +162,7 @@ namespace OnBoarding.Controllers
             };
             req2.RequestUri = new Uri(req2.RequestUri.ToString() + "test");
             req2.Method = HttpMethod.Get;
-            req2.Headers.Authorization = new AuthenticationHeaderValue("Bearer", localToken);
+            req2.Headers.Authorization = new AuthenticationHeaderValue("Bearer", Globals.JWTToken);
             using HttpResponseMessage response2 = await client.SendAsync(req2);
 
             // Write return code for JWT
