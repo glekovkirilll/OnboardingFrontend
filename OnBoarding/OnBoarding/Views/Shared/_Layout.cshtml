@@ -14,8 +14,8 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-menu">
-            <a class="navbar-brand" href="#">
-                 <img src="/img/Logobukvy.png" width="150" height="45" alt="logo">
+            <a class="navbar-brand" href="#" style="margin-left: 1rem;">
+                <img src="/img/Logobukvy.png" width="150" height="45" alt="logo">
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -34,6 +34,12 @@
                     <li class="nav-item">
                         <a class="nav-link" href="@Url.Action("Index", "Users")">Список пользователей</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Subdivisions")">Список подразделений</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="@Url.Action("Index", "Quests")">Банк квестов</a>
+                    </li>
                 </ul>
                 <div class="form-inline">
                     <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#logInModal">Войти</button>
@@ -47,23 +53,10 @@
         </main>
     </div>
 
-    <footer class="myFooter">
-        <div class="m-4">
-            <div class="links-in-footer">
-                <a>Контакты</a>
-            </div>
-            <div class="links-in-footer">
-                <a>Партнёрам</a>
-            </div>
-            <div class="links-in-footer">
-                <a>Помощь</a>
-            </div>
-            <div class="links-in-footer">
-                <a>FAQ</a>
-            </div>
-            <div class="links-in-footer">
-                <a>Telegram</a>
-            </div>
+    <footer class="footer" style="background-color: #ECE8FF; color: #3A3A3A;">
+        <div class="container d-flex justify-content-center">
+            <img class="align-self-center" src="/img/rosmol_logo_monochrome1.png" width="200" height="40">
+            <span class="text-muted">Продукт создан в рамках хакатона "Молодёжный бит"</span>
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -132,26 +125,26 @@
         </div>
     </form>
     <div class="modal fade" id="errorModal" tabindex="-1" role="dialog" aria-labelledby="errorModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="errorModalLabel">Регистрация</h5>
-                        <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
-                    </div>
-                    <div class="modal-body">
-                        Кажется, что-то пошло не так...
-                    </div>
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="errorModalLabel">Регистрация</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    Кажется, что-то пошло не так...
                 </div>
             </div>
         </div>
+    </div>
 </body>
 </html>
 
 <script>
     window.onload = function()  {
-        var error = @ViewBag.Error; 
+        var error = @ViewBag.Error;
       if (error == "error"){
-          $('#errorModal').modal('show'); 
+          $('#errorModal').modal('show');
       }
     };
 

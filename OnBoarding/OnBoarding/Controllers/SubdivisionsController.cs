@@ -29,12 +29,24 @@ namespace OnBoarding.Controllers
         public async Task<IActionResult> Index()
         {
             String jsonResponse;
+            String jsonResponseUser;
+            String jsonResponseRoles;
             try
             {
                 using HttpResponseMessage response = await sharedClient.GetAsync("division/all");
                 Console.WriteLine(response.EnsureSuccessStatusCode());
 
                 jsonResponse = await response.Content.ReadAsStringAsync();
+
+                using HttpResponseMessage responseUsers = await sharedClient.GetAsync("user/all");
+                Console.WriteLine(responseUsers.EnsureSuccessStatusCode());
+
+                jsonResponseUser = await responseUsers.Content.ReadAsStringAsync();
+
+                using HttpResponseMessage responseRoles = await sharedClient.GetAsync("roles/all");
+                Console.WriteLine(responseRoles.EnsureSuccessStatusCode());
+
+                jsonResponseRoles = await responseRoles.Content.ReadAsStringAsync();
 
             }
             catch
@@ -45,7 +57,19 @@ namespace OnBoarding.Controllers
 
 
             var jsonBody = JsonConvert.DeserializeObject<DivisionsList>(jsonResponse);
-            var model = jsonBody.divisions;
+
+            var jsonUsersBody = JsonConvert.DeserializeObject<UserList>(jsonResponseUser);
+
+            var jsonRoleBody = JsonConvert.DeserializeObject<RoleList>(jsonResponseRoles);
+
+            var model = new UserSubdivionRole() 
+            {
+                Subdivisions = jsonBody.divisions,
+                Users = jsonUsersBody.users,
+                Roles = jsonRoleBody.roles
+
+            };
+
             Console.WriteLine(model);
 
 
@@ -88,7 +112,8 @@ namespace OnBoarding.Controllers
            JsonConvert.SerializeObject(new
            {
                description = subdivision.Description,
-               name = subdivision.Name
+               name = subdivision.Name,
+               id = Guid.NewGuid()
            }),
                Encoding.UTF8,
                "application/json");
@@ -97,6 +122,44 @@ namespace OnBoarding.Controllers
             try
             {
                 using HttpResponseMessage response = await sharedClient.PostAsync("division/create", jsonContent);
+                Console.WriteLine(response.EnsureSuccessStatusCode());
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+            }
+            catch
+            {
+                return View();
+
+            }
+
+            var jsonBody = JsonConvert.DeserializeObject<object>(jsonResponse);
+            Console.WriteLine(jsonBody);
+
+
+            //var jsonBody = JsonConvert.DeserializeObject<LoginResponse>(jsonResponse);
+            //Console.WriteLine("JWT: " + jsonBody.JWT);
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddUser([Bind("DivisionId,Role,UserId")] UserToSubdivision subdivision)
+        {
+            using StringContent jsonContent = new(
+            JsonConvert.SerializeObject(new
+            {
+                divisionID = subdivision.DivisionId,
+                role = subdivision.Role,
+                userID = subdivision.UserId
+            }),
+                Encoding.UTF8,
+                "application/json");
+
+            String jsonResponse;
+            try
+            {
+                using HttpResponseMessage response = await sharedClient.PostAsync("division/addUser", jsonContent);
                 Console.WriteLine(response.EnsureSuccessStatusCode());
 
                 jsonResponse = await response.Content.ReadAsStringAsync();

@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 using OnBoarding.Data;
 using OnBoarding.Models;
 
@@ -12,7 +13,10 @@ namespace OnBoarding.Controllers
 {
     public class QuestsController : Controller
     {
-        //private readonly OnBoardingContext _context;
+        private static HttpClient sharedClient = new()
+        {
+            BaseAddress = new Uri("http://192.168.1.56:8080/api/v1/"),
+        };
 
         public QuestsController(OnBoardingContext context)
         {
@@ -22,7 +26,28 @@ namespace OnBoarding.Controllers
         // GET: Quests
         public async Task<IActionResult> Index()
         {
-              return View(/*await _context.Quest.ToListAsync()*/);
+            String jsonResponse;
+            try
+            {
+                using HttpResponseMessage response = await sharedClient.GetAsync("division/all");
+                Console.WriteLine(response.EnsureSuccessStatusCode());
+
+                jsonResponse = await response.Content.ReadAsStringAsync();
+
+            }
+            catch
+            {
+                return View();
+
+            }
+
+
+            var jsonBody = JsonConvert.DeserializeObject<DivisionsList>(jsonResponse);
+            var model = jsonBody.divisions;
+            Console.WriteLine(model);
+
+
+            return View(model);
         }
 
         // GET: Quests/Details/5

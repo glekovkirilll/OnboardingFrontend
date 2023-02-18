@@ -28,25 +28,23 @@
                 <div class="list-group-item p-2 flex-fill" style="width: 30%">
                     <div class="list-group-item-body">
                         <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editAboutModal">Редактировать о себе</button> |
-                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteUserModal">Delete</button>
+                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteUserModal">Удалить</button>
                     </div>
                 </div>
             </div>
         }
     </div>
-    
 </div>
 
-<form method="post" action="/Users/Edit">
+<form method="post" action="Edit">
     <div class="modal fade" id="editAboutModal" tabindex="-1" role="dialog" aria-labelledby="editAboutModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="editAboutModalLabel">Информация о пользователе</h5>
+                    <h5 class="modal-title" id="editAboutModalLabel">Редактирование пользователя</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="mb-3">
                         <label for="fio-for-about" class="col-form-label">ФИО:</label>
                         <input type="text" name="fio" class="form-control" id="fio-for-about">
@@ -72,12 +70,12 @@
     </div>
 </form>
 
-<form method="post" action="/Users/Delete">
+<form method="post" action="Delete">
     <div class="modal fade" id="deleteUserModal" tabindex="-1" role="dialog" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="deleteUserModalLabel">Информация о пользователе</h5>
+                    <h5 class="modal-title" id="deleteUserModalLabel">Удаление пользователя</h5>
                     <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
                 </div>
                 <div class="modal-body">
@@ -85,6 +83,40 @@
                 </div>
                 <div class="modal-footer">
                     <button type="submit" class="btn btn-modal">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" action="Create">
+    <div class="modal fade" id="createUserModal" tabindex="-1" role="dialog" aria-labelledby="createUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createUserModalLabel">Создание пользователя</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="fio-for-about" class="col-form-label">ФИО:</label>
+                        <input type="text" name="fio" class="form-control" id="fio-for-about">
+                    </div>
+                    <div class="mb-3">
+                        <label for="about-for-about" class="col-form-label">О себе:</label>
+                        <textarea type="text" name="about" class="form-control" id="about-for-about"></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="phoneNumber-for-about" class="col-form-label">Номер телефона:</label>
+                        <input type="tel" name="phoneNumber" class="form-control" id="phoneNumber-for-about">
+                    </div>
+                    <div class="mb-3">
+                        <label for="telegramId-for-about" class="col-form-label">ID telegram:</label>
+                        <input type="text" name="telegramId" class="form-control" id="telegramId-for-about">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Сохранить</button>
                 </div>
             </div>
         </div>

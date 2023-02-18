@@ -5,6 +5,7 @@
 <h1 class="m-3 noneCursor">Список квестов</h1>
 <div class="container mt-3">
     <div class="row m-2">
+        <button class="btn btn-modal col-2" style="margin-left: 0.5rem" data-toggle="modal" data-target="#createQuestModal">Создать задачу</button>
         <div class="list-group border d-flex m-2 p-3">
             <div class="pointerCursor d-flex flex-row justify-content-between">
                 <div class="zeroBorderLeft" style="width: 100%;" data-toggle="collapse"
@@ -21,10 +22,10 @@
                         Название квеста
                     </div>
                     <div class="list-group-item flex-fill col-2 ml-auto">
-                        <a class="btn btn-modal">Подробнее</a>
+                        <a class="btn btn-modal" >Подробнее</a>
                     </div>
                     <div class="list-group-item flex-fill col-2 ml-auto">
-                        <a class="btn btn-modal">Навигация</a>
+                        <a class="btn btn-modal" >Навигация</a>
                     </div>
                 </div>
             </div>
@@ -67,6 +68,32 @@
                                 </label>
                             </li>
                         </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Добавить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post">
+    <div class="modal fade" id="createQuestModal" tabindex="-1" role="dialog" aria-labelledby="createQuestModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createQuestModalLabel">Создать квест</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name-for-create-quest" class="col-form-label">Название</label>
+                        <input type="text" name="name" class="form-control" id="name-for-create-quest">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description-for-create-quest" class="col-form-label">Описание</label>
+                        <textarea type="text" name="description" class="form-control" id="description-for-create-quest"></textarea>
                     </div>
                 </div>
                 <div class="modal-footer">

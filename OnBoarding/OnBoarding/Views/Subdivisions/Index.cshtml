@@ -1,41 +1,154 @@
-﻿@model IEnumerable<OnBoarding.Models.Subdivision>
+﻿@model UserSubdivionRole
 
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<h1 class="m-3 noneCursor">Список подразделений</h1>
+<div class="container mt-3">
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                Название
-            </th>
-            <th>
-                Описание
-           </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                <a asp-action="Edit" >Edit</a> |
-                <a asp-action="Details" >Details</a> |
-                <a asp-action="Delete" >Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+    <a type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#createSubdivisionModal">Создать новое подразделение</a>
+
+    <div class="list-group list-group-bordered">
+        @foreach (var item in Model.Subdivisions)
+        {
+            <div class="list-group list-group-horizontal">
+                <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                    <div class="list-group-item-body">
+                        <div class="list-group-item-text"><b>Название</b></div>
+                        <div class="list-group-item-title">@item.Name</div>
+                    </div>
+                </div>
+                <div class="list-group-item p-2 flex-fill" style="width: 35%">
+                    <div class="list-group-item-body">
+                        <div class="list-group-item-text"><b>Описание</b></div>
+                        <div class="list-group-item-title">@item.Description</div>
+                    </div>
+                </div>
+                <div class="list-group-item p-2 flex-fill" style="width: 30%">
+                    <div class="list-group-item-body">
+                        <input class="subdivisionId" value="@item.Id" hidden/>
+                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#editSubdivisionModal">Редактировать подразделение</button> |
+                        <button type="button" class="btn btn-modal m-2 addUser" data-toggle="modal" data-target="#addUserSubdivisionModal">Добавить пользователя</button> |
+                        <button type="button" class="btn btn-modal m-2" data-toggle="modal" data-target="#deleteSubdivisionModal">Удалить</button>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<form method="post" asp-action="Edit">
+    <div class="modal fade" id="editSubdivisionModal" tabindex="-1" role="dialog" aria-labelledby="editSubdivisionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editSubdivisionModalLabel">Редактирование подразделения</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name-for-subdivision" class="col-form-label">Название:</label>
+                        <input type="text" name="name" class="form-control" id="name-for-subdivision">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description-for-subdivision" class="col-form-label">Описание:</label>
+                        <textarea type="text" name="description" class="form-control" id="description-for-subdivision"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Сохранить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" asp-action="Delete">
+    <div class="modal fade" id="deleteSubdivisionModal" tabindex="-1" role="dialog" aria-labelledby="deleteSubdivisionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteSubdivisionModalLabel">Удаление подразделения</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    Вы точно хотите удалить это подразделение?
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Удалить</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" asp-action="Create">
+    <div class="modal fade" id="createSubdivisionModal" tabindex="-1" role="dialog" aria-labelledby="createSubdivisionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="createSubdivisionModalLabel">Создание подразделения</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="name-for-subdivision" class="col-form-label">Название:</label>
+                        <input type="text" name="name" class="form-control" id="name-for-subdivision">
+                    </div>
+                    <div class="mb-3">
+                        <label for="description-for-subdivision" class="col-form-label">Описание:</label>
+                        <textarea type="text" name="description" class="form-control" id="description-for-subdivision"></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Создать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<form method="post" asp-action="AddUser">
+    <div class="modal fade" id="addUserSubdivisionModal" tabindex="-1" role="dialog" aria-labelledby="addUserSubdivisionModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addUserSubdivisionModalLabel">Добавление пользователя</h5>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="role-for-subdivision" class="col-form-label">Роль:</label>
+                        <select name="role" id="role-for-subdivision">
+                            @foreach (var role in Model.Roles)
+                            {
+                                <option value="@role">@role</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="user-for-subdivision" class="col-form-label">Имя пользователя:</label>
+                        <select name="userId" id="user-for-subdivision">
+                            @foreach (var user in Model.Users)
+                            {
+                                <option value="@user.id">@user.about.fio</option>
+                            }
+                        </select>
+                    </div>
+                    <input hidden value="" name="divisionId" id="divisionId-for-subdivision"/>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-modal">Создать</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(document).on("click", ".addUser", function () {
+     var divisionId = $(this).parent.find(".subdivisionId");
+     $(".modal-body #divisionId-for-subdivision").val( divisionId );
+});
+</script>
