@@ -15,5 +15,7 @@ namespace OnBoarding.Data
         }
 
         public DbSet<OnBoarding.Models.Quest> Quest { get; set; } = default!;
+
+        public DbSet<OnBoarding.Models.Subdivision> Subdivision { get; set; }
     }
 }
