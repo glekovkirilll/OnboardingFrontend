@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "1OJr0CQM/mZjsSdySP/NKubryXGiN78QzaWV+KJ9Z3ywYgYtply2JtdAQ5z0hyB+yFO///2s/d/IQ7LGZJ4rYQ==",
+  "dgSpecHash": "YF/bPG8aBtsslXFj91T+ZwbtBaJFxKpZErwgeqdijUC4kAMvhXAH965yN663ch+0rsfWTPcMre1bapJzvRRUIQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\ukwim\\Documents\\GameMakerStudio2\\OnboardingFrontend\\OnBoarding\\OnBoarding\\OnBoarding.csproj",
+  "projectFilePath": "D:\\Work\\OnboardingFrontend\\OnBoarding\\OnBoarding\\OnBoarding.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\ukwim\\.nuget\\packages\\bootstrap\\5.2.3\\bootstrap.5.2.3.nupkg.sha512",
-    "C:\\Users\\ukwim\\.nuget\\packages\\localstorage\\2.1.0\\localstorage.2.1.0.nupkg.sha512",
-    "C:\\Users\\ukwim\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
+    "C:\\Users\\lenovo\\.nuget\\packages\\bootstrap\\5.2.3\\bootstrap.5.2.3.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\localstorage\\2.1.0\\localstorage.2.1.0.nupkg.sha512",
+    "C:\\Users\\lenovo\\.nuget\\packages\\newtonsoft.json\\12.0.3\\newtonsoft.json.12.0.3.nupkg.sha512"
   ],
   "logs": []
 }

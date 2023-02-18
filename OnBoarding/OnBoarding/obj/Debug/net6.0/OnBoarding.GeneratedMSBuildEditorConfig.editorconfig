@@ -8,45 +8,45 @@ build_property.PlatformNeutralAssembly =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = OnBoarding
 build_property.RootNamespace = OnBoarding
-build_property.ProjectDir = C:\Users\ukwim\Documents\GameMakerStudio2\OnboardingFrontend\OnBoarding\OnBoarding\
+build_property.ProjectDir = D:\Work\OnboardingFrontend\OnBoarding\OnBoarding\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\ukwim\Documents\GameMakerStudio2\OnboardingFrontend\OnBoarding\OnBoarding
+build_property.MSBuildProjectDirectory = D:\Work\OnboardingFrontend\OnBoarding\OnBoarding
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/Authorize/Auth.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/Authorize/Auth.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yaXplXEF1dGguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/Authorize/Register.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/Authorize/Register.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXV0aG9yaXplXFJlZ2lzdGVyLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/Home/Index.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/Home/Privacy.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/Shared/Error.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/_ViewImports.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/_ViewStart.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/ukwim/Documents/GameMakerStudio2/OnboardingFrontend/OnBoarding/OnBoarding/Views/Shared/_Layout.cshtml]
+[D:/Work/OnboardingFrontend/OnBoarding/OnBoarding/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-ip6r64zzp6
