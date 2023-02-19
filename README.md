@@ -19,6 +19,7 @@
 
 Основной стек технологий:
 * HTML, CSS, JavaScript
+* С#
 * Asp.Net 6
 * Bootstrap
 
