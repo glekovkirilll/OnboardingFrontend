@@ -7,21 +7,26 @@
 <div class="container mt-3">
     <div class="row m-2">
         <button class="btn btn-modal col-2" style="margin-left: 0.5rem" data-toggle="modal" data-target="#createQuestModal">Создать задачу</button>
-        <div class="list-group border d-flex m-2 p-3">
-            <div class="pointerCursor d-flex flex-row justify-content-between">
-                @foreach(var item in Model.Divisions.divisions){
+        
+
+            @foreach (var item in Model.Divisions.divisions)
+            {
+
+                <div class="pointerCursor d-flex flex-row justify-content-between">
                     <div class="zeroBorderLeft" style="width: 100%;" data-toggle="collapse"
                      data-target="#block-name-podrazdelenie"
                      title="Нажмите для разворачивания блока">
                         <h3><b>@item.Name</b></h3>
                     </div>
-                }                
-                <a class="btn btn-modal mb-2" data-toggle="modal" data-target="#addQuestModal">Добавить квесты для подразделения</a>
-            </div>
+                </div>
+
+            }
+            <a class="btn btn-modal mb-2" data-toggle="modal" data-target="#addQuestModal">Добавить квесты для подразделения</a>
 
             <div class="collapse" id="block-name-podrazdelenie">
-                
-                    @foreach(var piece in Model.Quests.quests){
+
+                @foreach (var piece in Model.Quests.quests)
+                {
                     <div class="list-group list-group-horizontal">
                         <div class="list-group-item flex-fill col-8 noneCursor">
                             @piece.Name
@@ -33,8 +38,8 @@
                             <a class="btn btn-modal">Навигация</a>
                         </div>
                     </div>
-                    }                    
-                
+                }
+
             </div>
 
         </div>
@@ -146,11 +151,11 @@
     }</style>
 
 <script>
-        $(".checkbox-menu").on("change", "input[type='checkbox']", function() {
-       $(this).closest("li").toggleClass("active", this.checked);
+    $(".checkbox-menu").on("change", "input[type='checkbox']", function () {
+        $(this).closest("li").toggleClass("active", this.checked);
     });
 
     $(document).on('click', '.allow-focus', function (e) {
-      e.preventDefault();
+        e.preventDefault();
     });
 </script>
